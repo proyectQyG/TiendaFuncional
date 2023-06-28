@@ -9,11 +9,11 @@ import initializePassport from './config/passport.config.js';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
 
-import { __dirname } from './utils.js';
-import cartsRoutes from './routes/carts.routes.js';
-import productsRoutes from './routes/products.routes.js';
+import  __dirname  from './utils.js';
+// import cartsRoutes from './routes/carts.routes.js';
+// import productsRoutes from './routes/products.routes.js';
 import sessionRoutes from './routes/session.routes.js';
-import viewsRouter from './routes/views.routes.js';
+// import viewsRouter from './routes/views.routes.js';
 
 // --- application
 const app = express();
@@ -44,11 +44,11 @@ initializePassport();
 app.use(passport.initialize());
 
 // Routes
-app.use('/api/products', productsRoutes);
-app.use('/api/cart', cartsRoutes);
+// app.use('/api/products', productsRoutes);
+// app.use('/api/cart', cartsRoutes);
 app.use('/session', sessionRoutes);
-app.use('/', viewsRouter);
+app.get('/', (req, res) =>{ res.render('login.register')});
 app.get('*', (req, res) => { res.status(404).send('404 not found')})
 
 
-app.listen(3000, () => console.log('Servidor escuchando en el puerto 3000'))
+app.listen(8080, () => console.log('Servidor escuchando en el puerto 8080'))

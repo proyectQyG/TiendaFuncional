@@ -5,12 +5,12 @@ import { JWT_COOKIE_NAME } from '../utils.js'
 const router = Router()
 
 //Vista para registrar usuarios
-router.get('/login-register', (req, res) => {
+router.get('/regiser', (req, res) => {
     res.render('login.register')
 })
 
 // API para crear usuarios en la DB
-router.post('/login-register', passport.authenticate('login-register', { failureRedirect: '/session/failregister' }), async (req, res) => {
+router.post('/register', passport.authenticate('register', { failureRedirect: '/session/failregister' }), async (req, res) => {
     res.redirect('/session/login')
 })
 router.get('/failregister', (req, res) => {
@@ -24,7 +24,7 @@ router.get('/login', (req, res) => {
 })
 
 // API para login
-router.post('/login', passport.authenticate('login', { failureRedirect: '/session/faillogin' }), async (req, res) => {
+router.post('/login', passport.authenticate('login', { failureRedirect: '/faillogin' }), async (req, res) => {
     if (!req.user) {
         return res.status(400).send({ status: "error", error: "Invalid credentiales" })
     }
@@ -37,7 +37,7 @@ router.get('/faillogin', (req, res) => {
 
 // Cerrar Session
 router.get('/logout', (req, res) => {
-    res.clearCookie(JWT_COOKIE_NAME).redirect('/session/login')
+    res.clearCookie(JWT_COOKIE_NAME).redirect('/')
 })
 
 
